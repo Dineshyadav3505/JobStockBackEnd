@@ -112,9 +112,9 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
 
-  const { fullName, email} = req.body;
+  const {email} = req.body;
 
-  console.log(fullName, email)
+  console.log(email)
 
   if(!(email )){
     throw new ApiError(400, "Enter the fields to update");

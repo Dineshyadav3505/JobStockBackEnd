@@ -28,8 +28,10 @@ app.use(cookieParser());
 ///////////////////////////////////////////////////////////////
 // app.use("/api/v1/products", productRouter); 
 import userRouter from "./routes/user/user.route.js";
+import notificationRouter from "./routes/notification/notification.route.js";
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/notifiction", notificationRouter);
 
 
 export { app };
