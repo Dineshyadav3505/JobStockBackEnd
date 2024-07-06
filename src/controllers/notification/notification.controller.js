@@ -9,6 +9,12 @@ const option = {
 };
 
 const createNotification = asyncHandler(async (req, res) => {
+    const user = req.user;
+
+    if (user.role !== "Admin") {
+        throw new ApiError(401, "Unauthorized");
+    }
+
     const { title, message } = req.body;
     
     console.log(title, message)
@@ -53,6 +59,12 @@ const getNotifications = asyncHandler(async (req, res) => {
 );
 
 const deleteNotification = asyncHandler(async (req, res) => {
+    const user = req.user;
+
+    if (user.role !== "Admin") {
+        throw new ApiError(401, "Unauthorized");
+    }
+
     const { notificationId } = req.params;
     
     const notification = await Notification.findByIdAndDelete(notificationId);
@@ -72,6 +84,12 @@ const deleteNotification = asyncHandler(async (req, res) => {
 );
 
 const updateNotification = asyncHandler(async (req, res) => {
+    const user = req.user;
+
+    if (user.role !== "Admin") {
+        throw new ApiError(401, "Unauthorized");
+    }
+    
     const { notificationId } = req.params;
     const { title, message } = req.body;
     
