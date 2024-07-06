@@ -55,3 +55,5 @@ const jobPostSchema = new Schema({
 });
 
 const JobPost = mongoose.model('JobPost', jobPostSchema);
+
+export { JobPost };
