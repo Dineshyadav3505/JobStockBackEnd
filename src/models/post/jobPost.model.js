@@ -9,6 +9,7 @@ const jobPostSchema = new Schema({
         type: String,
         required: true
     },
+    lastDate: String,
     date1 : String,
     date2 : String,
     date3 : String,

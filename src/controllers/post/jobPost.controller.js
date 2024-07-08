@@ -8,6 +8,7 @@ const createJobPost = asyncHandler(async (req, res) => {
   const {
     postName,
     postDescription,
+    lastDate,
     date1,
     date2,
     date3,
@@ -52,7 +53,7 @@ const createJobPost = asyncHandler(async (req, res) => {
   }
 
   if (
-    [postName, postDescription, totalPost, applyLink].some(
+    [postName, postDescription, totalPost, applyLink, lastDate].some(
       (field) => field?.trim() === ""
     )
   ) {
@@ -90,6 +91,7 @@ const createJobPost = asyncHandler(async (req, res) => {
     const jobPost = await JobPost.create({
       postName,
       postDescription,
+      lastDate,
       date1,
       date2,
       date3,
