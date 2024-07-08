@@ -40,14 +40,14 @@ const jobPostSchema = new Schema({
     age9  : String,
     age10 : String,
     totalPost: String,
-    iconImage: {
+    iconImage: [{
         type: String,
         required: true
-    },
-    postImage: {
+    }],
+    postImage: [{
         type: String,
         required: true
-    },
+    }],
     applyLink: {
         type: String,
         required: true

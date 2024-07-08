@@ -9,18 +9,22 @@ const router = Router()
 router.route("/create").post(
     upload.fields([
         {
-            name : "iconImage",
-
+            name: "iconImage",
+            maxCount: 5,
+            size: "10mb"
+        
         },
         {
-            name : "postImage"
+            name: "postImage",
+            maxCount: 5,
+            size:  "10mb "
         }
     ]),
-    
     verifyJWT, createJobPost)
+
 router.route("/job").get(getJobPosts)
 router.route("/:id").get(getJobPostById)
-router.route("/update").patch(verifyJWT, updateJobPost)
-router.route("/delete").delete(verifyJWT, deleteJobPost)
+router.route("/:id").patch(verifyJWT, updateJobPost)
+router.route("/:id").delete(verifyJWT, deleteJobPost)
 
 export default router;
