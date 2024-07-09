@@ -10,6 +10,8 @@ const jobPostSchema = new Schema({
         required: true
     },
     lastDate: String,
+    beginDate: String,
+    yyyymmddDate: String,
     date1 : String,
     date2 : String,
     date3 : String,

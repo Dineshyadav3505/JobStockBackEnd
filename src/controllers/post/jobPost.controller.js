@@ -9,6 +9,8 @@ const createJobPost = asyncHandler(async (req, res) => {
     postName,
     postDescription,
     lastDate,
+    beginDate,
+    yyyymmddDate,
     date1,
     date2,
     date3,
@@ -44,7 +46,7 @@ const createJobPost = asyncHandler(async (req, res) => {
     postImage,
     applyLink,
   } = req.body;
-  console.log(totalPost)
+
 
   const user = req.user;
 
@@ -53,7 +55,7 @@ const createJobPost = asyncHandler(async (req, res) => {
   }
 
   if (
-    [postName, postDescription, totalPost, applyLink, lastDate].some(
+    [postName, postDescription, totalPost, applyLink, lastDate, beginDate, yyyymmddDate].some(
       (field) => field?.trim() === ""
     )
   ) {
@@ -92,6 +94,8 @@ const createJobPost = asyncHandler(async (req, res) => {
       postName,
       postDescription,
       lastDate,
+      beginDate,
+      yyyymmddDate,
       date1,
       date2,
       date3,
