@@ -140,7 +140,18 @@ const createJobPost = asyncHandler(async (req, res) => {
 });
 
 const getJobPosts = asyncHandler(async (req, res) => {
-  const jobPosts = await JobPost.find();
+  const { searchTerm } = req.query;
+
+  let jobPosts = await JobPost.find();
+
+  console.log(jobPosts);
+
+  if (searchTerm) {
+    jobPosts = jobPosts.filter((post) =>
+      post.postName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
   res.json(new ApiResponse(200, jobPosts));
 });
 
