@@ -30,10 +30,12 @@ app.use(cookieParser());
 import userRouter from "./routes/user/user.route.js";
 import notificationRouter from "./routes/notification/notification.route.js";
 import jobRouter from "./routes/post/jobPost.route.js";
+import resultRouter from "./routes/post/resultPost.route.js";
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/notifiction", notificationRouter);
 app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/result", resultRouter);
 
 
 

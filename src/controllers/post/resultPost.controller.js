@@ -1,10 +1,10 @@
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { ApiError } from "../../utils/ApiError.js";
-import { JobPost } from "../../models/post/jobPost.model.js";
+import { ResultPost } from "../../models/post/resultPost.model.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../../utils/cloudnary.js";
 
-const createJobPost = asyncHandler(async (req, res) => {
+const createResultPost = asyncHandler(async (req, res) => {
   const {
     postName,
     postDescription,
@@ -90,7 +90,7 @@ const createJobPost = asyncHandler(async (req, res) => {
       })
     );
 
-    const jobPost = await JobPost.create({
+    const ResultPost = await ResultPost.create({
       postName,
       postDescription,
       lastDate,
@@ -132,52 +132,52 @@ const createJobPost = asyncHandler(async (req, res) => {
       applyLink,
     });
 
-    return res.status(201).json(new ApiResponse(201, jobPost, "Post created successfully"));
+    return res.status(201).json(new ApiResponse(201, ResultPost, "Post created successfully"));
   } catch (error) {
     console.log(error);
     throw new ApiError(400, "Error uploading image");
   }
 });
 
-const getJobPosts = asyncHandler(async (req, res) => {
+const getResultPosts = asyncHandler(async (req, res) => {
   const { searchTerm } = req.query;
 
-  let jobPosts = await JobPost.find();
+  let ResultPosts = await ResultPost.find();
 
   if (searchTerm) {
-    jobPosts = jobPosts.filter((post) =>
+    ResultPosts = ResultPosts.filter((post) =>
       post.postName.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
-  res.json(new ApiResponse(200, jobPosts));
+  res.json(new ApiResponse(200, ResultPosts));
 });
 
-const getJobPostById = asyncHandler(async (req, res) => {
+const getResultPostById = asyncHandler(async (req, res) => {
 
-  const jobPost = await JobPost.findById(req.params.id);
+  const ResultPost = await ResultPost.findById(req.params.id);
 
-  if (!jobPost) {
+  if (!ResultPost) {
     throw new ApiError(404, "Job post not found");
   }
-  res.json(new ApiResponse(200, jobPost));
+  res.json(new ApiResponse(200, ResultPost));
 });
 
-const updateJobPost = asyncHandler(async (req, res) => {
+const updateResultPost = asyncHandler(async (req, res) => {
   const user = req.user;
 
   if (user.role !== "Admin") {
     throw new ApiError(401, "Unauthorized");
   }
 
-  const jobPost = await JobPost.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const ResultPost = await ResultPost.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
-  if (!jobPost) {
+  if (!ResultPost) {
     throw new ApiError(404, "Job post not found");
   }
-  res.json(new ApiResponse(200, jobPost));
+  res.json(new ApiResponse(200, ResultPost));
 });
 
-const deleteJobPost = asyncHandler(async (req, res) => {
+const deleteResultPost = asyncHandler(async (req, res) => {
   const user = req.user;
   console.log(user.role)
 
@@ -185,13 +185,13 @@ const deleteJobPost = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Unauthorized");
   }
 
-  const jobPost = await JobPost.findByIdAndDelete(req.params.id);
+  const ResultPost = await ResultPost.findByIdAndDelete(req.params.id);
   console.log(req.params.id);
 
-  if (!jobPost) {
+  if (!ResultPost) {
     throw new ApiError(404, "Job post not found");
   }
-  res.json(new ApiResponse(200, jobPost));
+  res.json(new ApiResponse(200, ResultPost));
 });
 
-export { createJobPost, getJobPosts, getJobPostById, updateJobPost, deleteJobPost };
+export { createResultPost, getResultPosts, getResultPostById, updateResultPost, deleteResultPost };
