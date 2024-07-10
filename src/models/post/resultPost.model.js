@@ -55,6 +55,8 @@ const resultPostSchema = new Schema({
         type: String,
         required: true
     },
+},{
+    timestamps: true,
 });
 
 const resultPost = mongoose.model('resultPost', resultPostSchema);

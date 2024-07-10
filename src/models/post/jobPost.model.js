@@ -55,6 +55,8 @@ const jobPostSchema = new Schema({
         type: String,
         required: true
     },
+},{
+    timestamps: true,
 });
 
 const JobPost = mongoose.model('JobPost', jobPostSchema);
