@@ -33,6 +33,7 @@ import jobRouter from "./routes/post/jobPost.route.js";
 import resultRouter from "./routes/post/resultPost.route.js";
 import admitCardRouter from "./routes/post/admitCard.route.js";
 import answerKeyRouter from "./routes/post/answerKey.route.js";
+import admissionRouter from "./routes/post/admission.route.js";
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/notifiction", notificationRouter);
@@ -40,6 +41,7 @@ app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/result", resultRouter);
 app.use("/api/v1/admitCard", admitCardRouter);
 app.use("/api/v1/answerKey", answerKeyRouter);
+app.use("/api/v1/admission", admissionRouter);
 
 
 
