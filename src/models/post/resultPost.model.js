@@ -59,4 +59,4 @@ const resultPostSchema = new Schema({
 
 const resultPost = mongoose.model('resultPost', resultPostSchema);
 
-export { resultPostSchema };
+export { resultPost };

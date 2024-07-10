@@ -1,6 +1,6 @@
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { ApiError } from "../../utils/ApiError.js";
-import { ResultPost } from "../../models/post/resultPost.model.js";
+import { resultPost } from "../../models/post/resultPost.model.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../../utils/cloudnary.js";
 
@@ -90,7 +90,7 @@ const createResultPost = asyncHandler(async (req, res) => {
       })
     );
 
-    const ResultPost = await ResultPost.create({
+    const ResultPost = await resultPost.create({
       postName,
       postDescription,
       lastDate,
@@ -142,7 +142,7 @@ const createResultPost = asyncHandler(async (req, res) => {
 const getResultPosts = asyncHandler(async (req, res) => {
   const { searchTerm } = req.query;
 
-  let ResultPosts = await ResultPost.find();
+  let ResultPosts = await resultPost.find();
 
   if (searchTerm) {
     ResultPosts = ResultPosts.filter((post) =>
@@ -154,7 +154,7 @@ const getResultPosts = asyncHandler(async (req, res) => {
 
 const getResultPostById = asyncHandler(async (req, res) => {
 
-  const ResultPost = await ResultPost.findById(req.params.id);
+  const ResultPost = await resultPost.findById(req.params.id);
 
   if (!ResultPost) {
     throw new ApiError(404, "Job post not found");
@@ -169,7 +169,7 @@ const updateResultPost = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Unauthorized");
   }
 
-  const ResultPost = await ResultPost.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const ResultPost = await resultPost.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
   if (!ResultPost) {
     throw new ApiError(404, "Job post not found");
@@ -185,7 +185,7 @@ const deleteResultPost = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Unauthorized");
   }
 
-  const ResultPost = await ResultPost.findByIdAndDelete(req.params.id);
+  const ResultPost = await resultPost.findByIdAndDelete(req.params.id);
   console.log(req.params.id);
 
   if (!ResultPost) {
