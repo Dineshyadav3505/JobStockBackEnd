@@ -48,13 +48,16 @@ const createUpcomminPost = asyncHandler(async (req, res) => {
   
 
 const getUpcomminPosts = asyncHandler(async (req, res) => {
-    try {
-      const posts = await upcommingPost.find({});
-      return res.json(new ApiResponse(200, posts, "Posts fetched successfully"));
-    } catch (error) {
-      console.log(error);
-      throw new ApiError(500, "Server Error");
-    }
+  const { searchTerm } = req.query;
+
+  let UpcommingPost = await upcommingPost.find();
+
+  if (searchTerm) {
+    UpcommingPost = UpcommingPost.filter((post) =>
+      post.postName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+  res.json(new ApiResponse(200, UpcommingPost));
 });
 
 const getUpcomminPostById = asyncHandler(async (req, res) => {

@@ -145,7 +145,7 @@ const getAdmissionPosts = asyncHandler(async (req, res) => {
   let AdmissiomPost = await admissiomPost.find();
 
   if (searchTerm) {
-    AdmissiomPost = admissiomPost.filter((post) =>
+    AdmissiomPost = AdmissiomPost.filter((post) =>
       post.postName.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
