@@ -1,4 +1,4 @@
-import {createAdmitCardPost, getAdmitCardPosts, getAdmitCardPostById, updateAdmitCardPost, deleteAdmitCardPost} from '../../controllers/post/admitCard.controller.js';
+import { createAnswerKeyPost, getAnswerKeyPosts, getAnswerKeyPostById, updateAnswerKeyPost, deleteAnswerKeyPost } from '../../controllers/post/answerKey.controller.js';   
 import { Router } from "express";
 import { upload } from "../../middlewares/multer.middleware.js";
 import {verifyJWT} from "../../middlewares/auth.middleware.js";
@@ -20,11 +20,11 @@ router.route("/create").post(
             size:  "10mb "
         }
     ]),
-    verifyJWT, createAdmitCardPost)
+    verifyJWT, createAnswerKeyPost)
 
-router.route("/admitcard").get(getAdmitCardPosts)
-router.route("/:id").get(getAdmitCardPostById)
-router.route("/:id").patch(verifyJWT, updateAdmitCardPost)
-router.route("/:id").delete(verifyJWT, deleteAdmitCardPost)
+router.route("/answerKey").get(getAnswerKeyPosts)
+router.route("/:id").get(getAnswerKeyPostById)
+router.route("/:id").patch(verifyJWT, updateAnswerKeyPost)
+router.route("/:id").delete(verifyJWT, deleteAnswerKeyPost)
 
 export default router;
