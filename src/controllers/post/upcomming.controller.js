@@ -17,7 +17,7 @@ const createUpcomminPost = asyncHandler(async (req, res) => {
       throw new ApiError(400, "All fields are required");
     }
 
-    const iconImageLocalPaths = req.files.iconImage.map((file) => file.path);
+    const iconImageLocalPaths = req.files.iconImage?.map((file) => file.path);
     if (!iconImageLocalPaths || iconImageLocalPaths.length === 0) {
         throw new ApiError(400, "iconImage file path is required");
     }
