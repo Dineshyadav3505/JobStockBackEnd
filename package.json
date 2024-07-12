@@ -12,8 +12,10 @@
   "description": "",
   "devDependencies": {
     "compression-webpack-plugin": "^11.1.0",
+    "image-webpack-loader": "^8.1.0",
     "nodemo": "^1.0.0",
-    "prettier": "^3.3.2"
+    "prettier": "^3.3.2",
+    "vite-plugin-compression2": "^1.1.2"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
