@@ -27,10 +27,8 @@ app.use(express.static("public"));
 
 app.use(cookieParser());
 
-
 // Routes
 ///////////////////////////////////////////////////////////////
-// app.use("/api/v1/products", productRouter); 
 import userRouter from "./routes/user/user.route.js";
 import notificationRouter from "./routes/notification/notification.route.js";
 import jobRouter from "./routes/post/jobPost.route.js";
@@ -48,8 +46,6 @@ app.use("/api/v1/admitCard", admitCardRouter);
 app.use("/api/v1/answerKey", answerKeyRouter);
 app.use("/api/v1/admission", admissionRouter);
 app.use("/api/v1/upcomming", upcommingRouter);
-
-
 
 export { app };
 
