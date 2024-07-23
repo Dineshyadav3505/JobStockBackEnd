@@ -142,17 +142,22 @@ const createStateJob = asyncHandler(async (req, res) => {
 });
 
 const getStateJob = asyncHandler(async (req, res) => {
-  const { searchTerm } = req.query;
-
-  let StateJob = await stateJob.find();
-
-  if (searchTerm) {
-    StateJob = StateJob.filter((post) =>
-      post.postName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
-  res.json(new ApiResponse(200, StateJob));
-});
+    const { searchTerm } = req.query;
+    const query = {};
+ 
+    if (searchTerm) {
+      query.postName = { $regex: searchTerm, $options: 'i' }; // Case-insensitive search
+    }
+  
+    try {
+      const stateJobs = await stateJob.find(query);
+  
+      res.json(new ApiResponse(200, stateJobs));
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(new ApiResponse(500, "Internal server error."));
+    }
+  });
 
 const getStateJobById = asyncHandler(async (req, res) => {
 

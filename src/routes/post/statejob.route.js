@@ -22,7 +22,7 @@ router.route("/create").post(
     ]),
     verifyJWT, createStateJob)
 
-router.route("/admission").get(getStateJob)
+router.route("/job").get(getStateJob)
 router.route("/:id").get(getStateJobById)
 router.route("/:id").patch(verifyJWT, updateStateJob)
 router.route("/:id").delete(verifyJWT, deleteStateJob)
