@@ -58,7 +58,11 @@ const statejobSchema = new Schema({
     postlink:{
         type: String,
         required: true
-    }
+    },
+    state:{
+        type: String,
+        required: true
+    }   
 
 },{timestamps:true});
 

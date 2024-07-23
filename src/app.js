@@ -49,6 +49,4 @@ app.use("/api/v1/admission", admissionRouter);
 app.use("/api/v1/upcomming", upcommingRouter);
 app.use("/api/v1/statejob", statejobRouter);
 
-
 export { app };
-

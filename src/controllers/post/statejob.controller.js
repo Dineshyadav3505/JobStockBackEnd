@@ -46,6 +46,7 @@ const createStateJob = asyncHandler(async (req, res) => {
     postImage,
     applyLink,
     postlink,
+    state,
   } = req.body;
 
 
@@ -56,7 +57,7 @@ const createStateJob = asyncHandler(async (req, res) => {
   }
 
   if (
-    [postName, postDescription, totalPost, postlink, applyLink, lastDate, beginDate, yyyymmddDate].some(
+    [postName, postDescription, totalPost, postlink, state, applyLink, lastDate, beginDate, yyyymmddDate].some(
       (field) => field?.trim() === ""
     )
   ) {
@@ -132,6 +133,7 @@ const createStateJob = asyncHandler(async (req, res) => {
       postImage, 
       applyLink,
       postlink,
+      state,
     });
 
     return res.status(201).json(new ApiResponse(201, StateJob, "Post created successfully"));
