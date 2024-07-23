@@ -1,6 +1,6 @@
-import mongoose, {Schema} from 'mongoose';
+import mongoose,{Schema} from 'mongoose';
 
-const admissiomSchema = new Schema({
+const statejobSchema = new Schema({
     postName:{
         type: String,
         required: true
@@ -55,14 +55,12 @@ const admissiomSchema = new Schema({
         type: String,
         required: true
     },
-    // postlink:{
-    //     type: String,
-    //     required: true
-    // }
-},{
-    timestamps: true,
-});
+    postlink:{
+        type: String,
+        required: true
+    }
 
-const admissiomPost = mongoose.model('admissiomPost', admissiomSchema);
+},{timestamps:true});
 
-export { admissiomPost };
+const stateJob = mongoose.model('stateJob',statejobSchema);
+export {stateJob};

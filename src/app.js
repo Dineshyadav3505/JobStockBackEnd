@@ -37,6 +37,7 @@ import admitCardRouter from "./routes/post/admitCard.route.js";
 import answerKeyRouter from "./routes/post/answerKey.route.js";
 import admissionRouter from "./routes/post/admission.route.js";
 import upcommingRouter from "./routes/post/upcomming.route.js";
+import statejobRouter from "./routes/post/statejob.route.js";
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/notifiction", notificationRouter);
@@ -46,6 +47,8 @@ app.use("/api/v1/admitCard", admitCardRouter);
 app.use("/api/v1/answerKey", answerKeyRouter);
 app.use("/api/v1/admission", admissionRouter);
 app.use("/api/v1/upcomming", upcommingRouter);
+app.use("/api/v1/statejob", statejobRouter);
+
 
 export { app };
 
