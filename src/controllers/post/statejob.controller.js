@@ -64,9 +64,7 @@ const createStateJob = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required");
   }
 
-  if(!state){
-     return lowerState = state.toLowerCase();
-  }
+  const lowerState = state.toLowerCase();
 
   if (!req.files || !req.files.iconImage || !req.files.postImage) {
     throw new ApiError(400, "Product image is required");
