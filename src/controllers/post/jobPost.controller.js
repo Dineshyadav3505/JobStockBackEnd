@@ -154,7 +154,7 @@ const getJobPosts = asyncHandler(async (req, res) => {
 
 const getJobPostById = asyncHandler(async (req, res) => {
 
-  const jobPost = await JobPost.findById(req.params.id);
+  const jobPost = await JobPost.findOne(req.params.id);
 
   if (!jobPost) {
     throw new ApiError(404, "Job post not found");
