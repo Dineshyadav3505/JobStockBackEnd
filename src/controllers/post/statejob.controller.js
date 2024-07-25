@@ -65,7 +65,7 @@ const createStateJob = asyncHandler(async (req, res) => {
   }
 
   if(!state){
-    state = state.toLowerCase();
+     return lowerState = state.toLowerCase();
   }
 
   if (!req.files || !req.files.iconImage || !req.files.postImage) {
@@ -137,7 +137,7 @@ const createStateJob = asyncHandler(async (req, res) => {
       postImage, 
       applyLink,
       postlink,
-      state,
+      state : lowerState,
     });
 
     return res.status(201).json(new ApiResponse(201, StateJob, "Post created successfully"));
