@@ -48,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const createdUser = await User.findById(user._id).select("-password");
 
   if (!createdUser) {
-    throw new ApiError(500, "User not created");
+    throw new ApiError(500, "Email not Registered");
   }
 
   const {accessToken} = await generateAccessToken(user._id);
