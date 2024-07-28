@@ -5,35 +5,133 @@ import { ApiResponse } from "../../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../../utils/cloudnary.js";
 
 const createUpcomminPost = asyncHandler(async (req, res) => {
-    const { postName, lastDate, beginDate, iconImage, yyyymmddDate } = req.body;
+  const {
+    postName,
+    postDescription,
+    lastDate,
+    beginDate,
+    yyyymmddDate,
+    date1,
+    date2,
+    date3,
+    date4,
+    date5,
+    date6,
+    date7,
+    date8,
+    date9,
+    date10,
+    Fee1,
+    Fee2,
+    Fee3,
+    Fee4,
+    Fee5,
+    Fee6,
+    Fee7,
+    Fee8,
+    Fee9,
+    Fee10,
+    age1,
+    age2,
+    age3,
+    age4,
+    age5,
+    age6,
+    age7,
+    age8,
+    age9,
+    age10,
+    totalPost,
+    iconImage,
+    postImage,
 
-    const user = req.user;
+  } = req.body;
 
-    if (user.role!== "Admin") {
-      throw new ApiError(401, "Unauthorized");
-    }
 
-    if ([postName, lastDate, beginDate, yyyymmddDate].some((field) => field?.trim() === "")) {
-      throw new ApiError(400, "All fields are required");
-    }
+  const user = req.user;
 
-    const iconImageLocalPaths = req.files.iconImage?.map((file) => file.path);
-    if (!iconImageLocalPaths || iconImageLocalPaths.length === 0) {
-        throw new ApiError(400, "iconImage file path is required");
-    }
+  if (user.role !== "Admin") {
+    throw new ApiError(401, "Unauthorized");
+  }
 
-    try {
+  if (
+    [postName, postDescription, totalPost, lastDate, beginDate, yyyymmddDate].some(
+      (field) => field?.trim() === ""
+    )
+  ) {
+    throw new ApiError(400, "All fields are required");
+  }
+
+  if (!req.files.postImage) {
+    throw new ApiError(400, "postImage image is required");
+  }
+  if (!req.files.iconImage) {
+    throw new ApiError(400, "iconImage image is required");
+  }
+
+
+  const iconImageLocalPaths = req.files.iconImage.map((file) => file.path);
+  const postImageLocalPaths = req.files.postImage.map((file) => file.path);
+
+  if (!iconImageLocalPaths || iconImageLocalPaths.length === 0) {
+    throw new ApiError(400, "iconImage file path is required");
+  }
+
+  if (!postImageLocalPaths || postImageLocalPaths.length === 0) {
+    throw new ApiError(400, "postImage file path is required");
+  }
+
+  try {
         const iconImage = await Promise.all(iconImageLocalPaths.map(async (path) => {
             const result = await uploadOnCloudinary(path);
             return result.secure_url;
-        })
+          })
         );
+        const postImage = await Promise.all(postImageLocalPaths.map(async (path) => {
+            const result = await uploadOnCloudinary(path);
+            return result.secure_url;
+          })
+        );
+
         const post = await upcommingPost.create({
-            postName,
-            lastDate,
-            beginDate,
-            yyyymmddDate,
-            iconImage,
+          postName,
+          postDescription,
+          lastDate,
+          beginDate,
+          yyyymmddDate,
+          date1,
+          date2,
+          date3,
+          date4,
+          date5,
+          date6,
+          date7,
+          date8,
+          date9,
+          date10,
+          Fee1,
+          Fee2,
+          Fee3,
+          Fee4,
+          Fee5,
+          Fee6,
+          Fee7,
+          Fee8,
+          Fee9,
+          Fee10,
+          age1,
+          age2,
+          age3,
+          age4,
+          age5,
+          age6,
+          age7,
+          age8,
+          age9,
+          age10,
+          totalPost,
+          iconImage,
+          postImage,
         });
 
         res.status(201).json(new ApiResponse(201, post, "Post created successfully"));
@@ -79,14 +177,88 @@ const getUpcomminPostById = asyncHandler(async (req, res) => {
 
 const updateUpcomminPost = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { postName, lastDate, beginDate, yyyymmddDate} = req.body;
+    const {
+      postName,
+      postDescription,
+      lastDate,
+      beginDate,
+      yyyymmddDate,
+      date1,
+      date2,
+      date3,
+      date4,
+      date5,
+      date6,
+      date7,
+      date8,
+      date9,
+      date10,
+      Fee1,
+      Fee2,
+      Fee3,
+      Fee4,
+      Fee5,
+      Fee6,
+      Fee7,
+      Fee8,
+      Fee9,
+      Fee10,
+      age1,
+      age2,
+      age3,
+      age4,
+      age5,
+      age6,
+      age7,
+      age8,
+      age9,
+      age10,
+      totalPost,
+      iconImage,
+      postImage,
+  
+    } = req.body;
 
     try {
       const post = await upcommingPost.findByIdAndUpdate(id, {
-        postName,
-        lastDate,
-        beginDate,
-        yyyymmddDate,
+          postName,
+          postDescription,
+          lastDate,
+          beginDate,
+          yyyymmddDate,
+          date1,
+          date2,
+          date3,
+          date4,
+          date5,
+          date6,
+          date7,
+          date8,
+          date9,
+          date10,
+          Fee1,
+          Fee2,
+          Fee3,
+          Fee4,
+          Fee5,
+          Fee6,
+          Fee7,
+          Fee8,
+          Fee9,
+          Fee10,
+          age1,
+          age2,
+          age3,
+          age4,
+          age5,
+          age6,
+          age7,
+          age8,
+          age9,
+          age10,
+          totalPost,
+          iconImage,
+          postImage
       }, { new: true });
 
       if (!post) {

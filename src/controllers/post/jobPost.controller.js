@@ -68,9 +68,6 @@ const createJobPost = asyncHandler(async (req, res) => {
   if (!req.files.iconImage) {
     throw new ApiError(400, "iconImage image is required");
   }
-  if (!req.files ) {
-    throw new ApiError(400, "Post image is required");
-  }
 
 
   const iconImageLocalPaths = req.files.iconImage.map((file) => file.path);

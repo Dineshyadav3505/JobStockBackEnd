@@ -55,10 +55,6 @@ const statejobSchema = new Schema({
         type: String,
         required: true
     },
-    postlink:{
-        type: String,
-        required: true
-    },
     state:{
         type: String,
         required: true

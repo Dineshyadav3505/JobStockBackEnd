@@ -165,11 +165,95 @@ const getAdmissionPostById = asyncHandler(async (req, res) => {
 const updateAdmissionPost = asyncHandler(async (req, res) => {
   const user = req.user;
 
+  const {
+    postName,
+    postDescription,
+    lastDate,
+    beginDate,
+    yyyymmddDate,
+    date1,
+    date2,
+    date3,
+    date4,
+    date5,
+    date6,
+    date7,
+    date8,
+    date9,
+    date10,
+    Fee1,
+    Fee2,
+    Fee3,
+    Fee4,
+    Fee5,
+    Fee6,
+    Fee7,
+    Fee8,
+    Fee9,
+    Fee10,
+    age1,
+    age2,
+    age3,
+    age4,
+    age5,
+    age6,
+    age7,
+    age8,
+    age9,
+    age10,
+    totalPost,
+    iconImage,
+    postImage,
+
+  } = req.body;
+
+
   if (user.role !== "Admin") {
     throw new ApiError(401, "Unauthorized");
   }
 
-  const AdmissiomPost = await admissiomPost.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const AdmissiomPost = await admissiomPost.findByIdAndUpdate(
+    {
+        postName,
+        postDescription,
+        lastDate,
+        beginDate,
+        yyyymmddDate,
+        date1,
+        date2,
+        date3,
+        date4,
+        date5,
+        date6,
+        date7,
+        date8,
+        date9,
+        date10,
+        Fee1,
+        Fee2,
+        Fee3,
+        Fee4,
+        Fee5,
+        Fee6,
+        Fee7,
+        Fee8,
+        Fee9,
+        Fee10,
+        age1,
+        age2,
+        age3,
+        age4,
+        age5,
+        age6,
+        age7,
+        age8,
+        age9,
+        age10,
+        totalPost,
+        iconImage,
+        postImage,
+    
+    }, { new: true });
 
   if (!AdmissiomPost) {
     throw new ApiError(404, "Post not found");

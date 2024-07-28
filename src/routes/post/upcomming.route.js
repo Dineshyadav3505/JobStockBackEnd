@@ -13,6 +13,11 @@ router.route("/create").post(
             maxCount: 5,
             size: "10mb"
         
+        },
+        {
+            name: "postImage",
+            maxCount: 5,
+            size:  "10mb "
         }
     ]),
     verifyJWT, createUpcomminPost)

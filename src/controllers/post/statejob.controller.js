@@ -57,7 +57,7 @@ const createStateJob = asyncHandler(async (req, res) => {
   }
 
   if (
-    [postName, postDescription, totalPost, postlink, state, applyLink, lastDate, beginDate, yyyymmddDate].some(
+    [postName, postDescription, totalPost, state, applyLink, lastDate, beginDate, yyyymmddDate].some(
       (field) => field?.trim() === ""
     )
   ) {
@@ -134,14 +134,13 @@ const createStateJob = asyncHandler(async (req, res) => {
       iconImage,
       postImage, 
       applyLink,
-      postlink,
       state: lowerCaseState,
     });
 
     return res.status(201).json(new ApiResponse(201, StateJob, "Post created successfully"));
   } catch (error) {
     console.log(error);
-    throw new ApiError(400, "Error uploading image");
+    throw new ApiError(400, error);
   }
 });
 
