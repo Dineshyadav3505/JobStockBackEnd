@@ -10,7 +10,6 @@ const createUpcomminPost = asyncHandler(async (req, res) => {
     postDescription,
     lastDate,
     beginDate,
-    yyyymmddDate,
     date1,
     date2,
     date3,
@@ -44,9 +43,7 @@ const createUpcomminPost = asyncHandler(async (req, res) => {
     totalPost,
     iconImage,
     postImage,
-
   } = req.body;
-
 
   const user = req.user;
 
@@ -55,7 +52,7 @@ const createUpcomminPost = asyncHandler(async (req, res) => {
   }
 
   if (
-    [postName, postDescription, totalPost, lastDate, beginDate, yyyymmddDate].some(
+    [postName, postDescription, lastDate, beginDate].some(
       (field) => field?.trim() === ""
     )
   ) {
@@ -82,107 +79,22 @@ const createUpcomminPost = asyncHandler(async (req, res) => {
   }
 
   try {
-        const iconImage = await Promise.all(iconImageLocalPaths.map(async (path) => {
-            const result = await uploadOnCloudinary(path);
-            return result.secure_url;
-          })
-        );
-        const postImage = await Promise.all(postImageLocalPaths.map(async (path) => {
-            const result = await uploadOnCloudinary(path);
-            return result.secure_url;
-          })
-        );
-
-        const post = await upcommingPost.create({
-          postName,
-          postDescription,
-          lastDate,
-          beginDate,
-          yyyymmddDate,
-          date1,
-          date2,
-          date3,
-          date4,
-          date5,
-          date6,
-          date7,
-          date8,
-          date9,
-          date10,
-          Fee1,
-          Fee2,
-          Fee3,
-          Fee4,
-          Fee5,
-          Fee6,
-          Fee7,
-          Fee8,
-          Fee9,
-          Fee10,
-          age1,
-          age2,
-          age3,
-          age4,
-          age5,
-          age6,
-          age7,
-          age8,
-          age9,
-          age10,
-          totalPost,
-          iconImage,
-          postImage,
-        });
-
-        res.status(201).json(new ApiResponse(201, post, "Post created successfully"));
-
-    } catch (error) {
-        console.log(error);
-        throw new ApiError(500, "Server Error");
-    }
-
-        
-});
-  
-
-const getUpcomminPosts = asyncHandler(async (req, res) => {
-  const { searchTerm } = req.query;
-
-  let UpcommingPost = await upcommingPost.find();
-
-  if (searchTerm) {
-    UpcommingPost = UpcommingPost.filter((post) =>
-      post.postName.toLowerCase().includes(searchTerm.toLowerCase())
+    const iconImage = await Promise.all(iconImageLocalPaths.map(async (path) => {
+        const result = await uploadOnCloudinary(path);
+        return result.secure_url;
+      })
     );
-  }
-  res.json(new ApiResponse(200, UpcommingPost));
-});
+    const postImage = await Promise.all(postImageLocalPaths.map(async (path) => {
+        const result = await uploadOnCloudinary(path);
+        return result.secure_url;
+      })
+    );
 
-const getUpcomminPostById = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-
-    try {
-      const post = await upcommingPost.findById(id);
-
-      if (!post) {
-        throw new ApiError(404, "Post not found");
-      }
-
-      return res.json(new ApiResponse(200, post, "Post fetched successfully"));
-    } catch (error) {
-      console.log(error);
-      throw new ApiError(500, "Server Error");
-    }
-});
-
-const updateUpcomminPost = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    const {
+    const createdPosts = await upcommingPost.create({
       postName,
       postDescription,
       lastDate,
       beginDate,
-      yyyymmddDate,
       date1,
       date2,
       date3,
@@ -215,17 +127,105 @@ const updateUpcomminPost = asyncHandler(async (req, res) => {
       age10,
       totalPost,
       iconImage,
-      postImage,
-  
-    } = req.body;
+      postImage, 
+    });
 
-    try {
-      const post = await upcommingPost.findByIdAndUpdate(id, {
+    return res.status(201).json(new ApiResponse(201, createdPosts, "Post created successfully"));
+  } catch (error) {
+    console.log(error);
+    throw new ApiError(400, "Error uploading image");
+  }
+});
+
+const getUpcomminPosts = asyncHandler(async (req, res) => {
+  const { searchTerm } = req.query;
+
+  let upcommingPosts = await upcommingPost.find();
+
+  if (searchTerm) {
+    jobPosts = jobPosts.filter((post) =>
+      post.postName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+  res.json(new ApiResponse(200, upcommingPosts));
+});
+
+const getUpcomminPostById = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  const upcomming = await upcommingPost.findById(req.params.id);
+
+  if (!upcomming){
+    throw new ApiError(404, "Job post not found");
+  }
+  res.json(new ApiResponse(200, upcomming));
+});
+
+const updateUpcomminPost = asyncHandler(async (req, res) => {
+  const user = req.user;
+
+  // Check if the user is an Admin
+  if (user.role !== "Admin") {
+    throw new ApiError(401, "Unauthorized");
+  }
+
+  // Destructure the request body
+  const {
+    postName,
+    postDescription,
+    lastDate,
+    beginDate,
+    date1,
+    date2,
+    date3,
+    date4,
+    date5,
+    date6,
+    date7,
+    date8,
+    date9,
+    date10,
+    Fee1,
+    Fee2,
+    Fee3,
+    Fee4,
+    Fee5,
+    Fee6,
+    Fee7,
+    Fee8,
+    Fee9,
+    Fee10,
+    age1,
+    age2,
+    age3,
+    age4,
+    age5,
+    age6,
+    age7,
+    age8,
+    age9,
+    age10,
+    totalPost,
+    iconImage,
+    postImage,
+  } = req.body;
+
+  // Ensure the post ID is provided
+  const postId = req.params.id;
+  if (!postId) {
+    throw new ApiError(400, "Post ID is required");
+  }
+
+
+  try {
+    // Update the post in the database
+    const post = await upcommingPost.findByIdAndUpdate(postId, 
+      { $set:{
           postName,
           postDescription,
           lastDate,
           beginDate,
-          yyyymmddDate,
           date1,
           date2,
           date3,
@@ -258,35 +258,37 @@ const updateUpcomminPost = asyncHandler(async (req, res) => {
           age10,
           totalPost,
           iconImage,
-          postImage
+          postImage,      
+      }
       }, { new: true });
 
-      if (!post) {
-        throw new ApiError(404, "Post not found");
-      }
-
-      return res.json(new ApiResponse(200, post, "Post updated successfully"));
-    } catch (error) {
-      console.log(error);
-      throw new ApiError(500, "Server Error");
+    // Check if the post was found and updated
+    if (!post) {
+      throw new ApiError(404, "Job post not found");
     }
+
+    // Send the updated post in the response
+    res.json(new ApiResponse(200, post));
+  } catch (error) {
+    console.error("Error updating post:", error);
+    throw new ApiError(500, "Internal Server Error");
+  }
 });
 
 const deleteUpcomminPost = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+  const user = req.user;
+  console.log(user.role)
 
-    try {
-      const post = await upcommingPost.findByIdAndDelete(id);
+  if (user.role !== "Admin") {
+    throw new ApiError(401, "Unauthorized");
+  }
 
-      if (!post) {
-        throw new ApiError(404, "Post not found");
-      }
+  const Post = await upcommingPost.findByIdAndDelete(req.params.id);
 
-      return res.json(new ApiResponse(200, post, "Post deleted successfully"));
-    } catch (error) {
-      console.log(error);
-      throw new ApiError(500, "Server Error");
-    }
+  if (!Post) {
+    throw new ApiError(404, "Job post not found");
+  }
+  res.json(new ApiResponse(200, Post));
 });
 
 export { createUpcomminPost, getUpcomminPosts, getUpcomminPostById, updateUpcomminPost, deleteUpcomminPost };
