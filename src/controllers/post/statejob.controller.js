@@ -65,6 +65,7 @@ const createStateJob = asyncHandler(async (req, res) => {
   }
 
   const lowerCaseState = state.toLowerCase();
+  console.log(lowerCaseState);
 
   if (!req.files || !req.files.iconImage || !req.files.postImage) {
     throw new ApiError(400, "Product image is required");

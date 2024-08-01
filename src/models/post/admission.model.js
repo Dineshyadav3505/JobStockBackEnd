@@ -42,7 +42,6 @@ const admissiomSchema = new Schema({
     age8  : String,
     age9  : String,
     age10 : String,
-    totalPost: String,
     iconImage: [{
         type: String,
         required: true
@@ -54,11 +53,7 @@ const admissiomSchema = new Schema({
     applyLink: {
         type: String,
         required: true
-    },
-    // postlink:{
-    //     type: String,
-    //     required: true
-    // }
+    }
 },{
     timestamps: true,
 });

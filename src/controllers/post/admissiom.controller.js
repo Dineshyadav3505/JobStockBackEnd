@@ -41,7 +41,6 @@ const createAdmissionPost = asyncHandler(async (req, res) => {
     age8,
     age9,
     age10,
-    totalPost,
     iconImage,
     postImage,
     applyLink,
@@ -55,7 +54,7 @@ const createAdmissionPost = asyncHandler(async (req, res) => {
   }
 
   if (
-    [postName, postDescription, totalPost, applyLink, lastDate, beginDate, yyyymmddDate].some(
+    [postName, postDescription, applyLink, lastDate, beginDate, yyyymmddDate].some(
       (field) => field?.trim() === ""
     )
   ) {
@@ -126,7 +125,6 @@ const createAdmissionPost = asyncHandler(async (req, res) => {
       age8,
       age9,
       age10,
-      totalPost,
       iconImage,
       postImage, 
       applyLink,
