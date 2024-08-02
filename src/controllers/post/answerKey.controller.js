@@ -165,6 +165,19 @@ const getAnswerKeyPostById = asyncHandler(async (req, res) => {
 const updateAnswerKeyPost = asyncHandler(async (req, res) => {
   const user = req.user;
 
+  // Check if the user is an Admin
+  if (user.role !== "Admin") {
+    throw new ApiError(401, "Unauthorized");
+  }
+
+  // Ensure the post ID is provided
+  const postId = req.params.id;
+  if (!postId) {
+    throw new ApiError(400, "Post ID is required");
+  }
+
+  // Create an update object based on the request body
+  const updateFields = {};
   const {
     postName,
     postDescription,
@@ -202,62 +215,64 @@ const updateAnswerKeyPost = asyncHandler(async (req, res) => {
     age9,
     age10,
     totalPost,
-    iconImage,
-    postImage,
-    applyLink,
   } = req.body;
 
+  try {
+    // Dynamically build the updateFields object
+    if (postName) updateFields.postName = postName;
+    if (postDescription) updateFields.postDescription = postDescription;
+    if (lastDate) updateFields.lastDate = lastDate;
+    if (beginDate) updateFields.beginDate = beginDate;
+    if (yyyymmddDate) updateFields.yyyymmddDate = yyyymmddDate;
+    if (date1) updateFields.date1 = date1;
+    if (date2) updateFields.date2 = date2;
+    if (date3) updateFields.date3 = date3;
+    if (date4) updateFields.date4 = date4;
+    if (date5) updateFields.date5 = date5;
+    if (date6) updateFields.date6 = date6;
+    if (date7) updateFields.date7 = date7;
+    if (date8) updateFields.date8 = date8;
+    if (date9) updateFields.date9 = date9;
+    if (date10) updateFields.date10 = date10;
+    if (Fee1) updateFields.Fee1 = Fee1;
+    if (Fee2) updateFields.Fee2 = Fee2;
+    if (Fee3) updateFields.Fee3 = Fee3;
+    if (Fee4) updateFields.Fee4 = Fee4;
+    if (Fee5) updateFields.Fee5 = Fee5;
+    if (Fee6) updateFields.Fee6 = Fee6;
+    if (Fee7) updateFields.Fee7 = Fee7;
+    if (Fee8) updateFields.Fee8 = Fee8;
+    if (Fee9) updateFields.Fee9 = Fee9;
+    if (Fee10) updateFields.Fee10 = Fee10;
+    if (age1) updateFields.age1 = age1;
+    if (age2) updateFields.age2 = age2;
+    if (age3) updateFields.age3 = age3;
+    if (age4) updateFields.age4 = age4;
+    if (age5) updateFields.age5 = age5;
+    if (age6) updateFields.age6 = age6;
+    if (age7) updateFields.age7 = age7;
+    if (age8) updateFields.age8 = age8;
+    if (age9) updateFields.age9 = age9;
+    if (age10) updateFields.age10 = age10;
+    if (totalPost) updateFields.totalPost = totalPost;
 
-  if (user.role !== "Admin") {
-    throw new ApiError(401, "Unauthorized");
+    // Update the post in the database
+    const post = await answerKeyPost.findByIdAndUpdate(postId, 
+      { $set: updateFields }, 
+      { new: true, runValidators: true }
+    );
+
+    // Check if the post was found and updated
+    if (!post) {
+      throw new ApiError(404, "Job post not found");
+    }
+
+    // Send the updated post in the response
+    res.json(new ApiResponse(200, post));
+  } catch (error) {
+    console.error("Error updating post:", error);
+    throw new ApiError(500, "Internal Server Error");
   }
-
-  const AnswerKeyPost = await answerKeyPost.findByIdAndUpdate({
-      postName,
-      postDescription,
-      lastDate,
-      beginDate,
-      yyyymmddDate,
-      date1,
-      date2,
-      date3,
-      date4,
-      date5,
-      date6,
-      date7,
-      date8,
-      date9,
-      date10,
-      Fee1,
-      Fee2,
-      Fee3,
-      Fee4,
-      Fee5,
-      Fee6,
-      Fee7,
-      Fee8,
-      Fee9,
-      Fee10,
-      age1,
-      age2,
-      age3,
-      age4,
-      age5,
-      age6,
-      age7,
-      age8,
-      age9,
-      age10,
-      totalPost,
-      iconImage,
-      postImage,
-      applyLink,
-  }, { new: true });
-
-  if (!AnswerKeyPost) {
-    throw new ApiError(404, "Job post not found");
-  }
-  res.json(new ApiResponse(200, AnswerKeyPost));
 });
 
 const deleteAnswerKeyPost = asyncHandler(async (req, res) => {
