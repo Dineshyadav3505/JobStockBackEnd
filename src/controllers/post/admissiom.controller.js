@@ -181,6 +181,7 @@ const updateAdmissionPost = asyncHandler(async (req, res) => {
     postDescription,
     lastDate,
     beginDate,
+    yyyymmddDate,
     date1,
     date2,
     date3,
@@ -212,6 +213,7 @@ const updateAdmissionPost = asyncHandler(async (req, res) => {
     age9,
     age10,
     totalPost,
+    applyLink,
   } = req.body;
 
   try {
@@ -220,6 +222,7 @@ const updateAdmissionPost = asyncHandler(async (req, res) => {
     if (postDescription) updateFields.postDescription = postDescription;
     if (lastDate) updateFields.lastDate = lastDate;
     if (beginDate) updateFields.beginDate = beginDate;
+    if (yyyymmddDate) updateFields.yyyymmddDate = yyyymmddDate;
     if (date1) updateFields.date1 = date1;
     if (date2) updateFields.date2 = date2;
     if (date3) updateFields.date3 = date3;
@@ -251,6 +254,7 @@ const updateAdmissionPost = asyncHandler(async (req, res) => {
     if (age9) updateFields.age9 = age9;
     if (age10) updateFields.age10 = age10;
     if (totalPost) updateFields.totalPost = totalPost;
+    if (applyLink) updateFields.applyLink = applyLink;
 
     // Update the post in the database
     const post = await admissiomPost.findByIdAndUpdate(postId, 
