@@ -215,6 +215,7 @@ const updateAnswerKeyPost = asyncHandler(async (req, res) => {
     age9,
     age10,
     totalPost,
+    applyLink,
   } = req.body;
 
   try {
@@ -255,6 +256,7 @@ const updateAnswerKeyPost = asyncHandler(async (req, res) => {
     if (age9) updateFields.age9 = age9;
     if (age10) updateFields.age10 = age10;
     if (totalPost) updateFields.totalPost = totalPost;
+    if (applyLink) updateFields.applyLink = applyLink;
 
     // Update the post in the database
     const post = await answerKeyPost.findByIdAndUpdate(postId, 
