@@ -183,6 +183,7 @@ const updateUpcomminPost = asyncHandler(async (req, res) => {
     postDescription,
     lastDate,
     beginDate,
+    yyyymmdd,
     date1,
     date2,
     date3,
@@ -222,6 +223,7 @@ const updateUpcomminPost = asyncHandler(async (req, res) => {
     if (postDescription) updateFields.postDescription = postDescription;
     if (lastDate) updateFields.lastDate = lastDate;
     if (beginDate) updateFields.beginDate = beginDate;
+    if (yyyymmdd) updateFields.yyyymmdd = yyyymmdd;
     if (date1) updateFields.date1 = date1;
     if (date2) updateFields.date2 = date2;
     if (date3) updateFields.date3 = date3;
